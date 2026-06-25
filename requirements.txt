@@ -1,0 +1,8 @@
+# chain-balance is dependency-free for core functionality.
+# All balance checks use built-in urllib via public RPCs.
+
+# Optional: for CSV batch processing
+# pip install pandas
+
+# Optional: for colored terminal output
+# pip install colorama
