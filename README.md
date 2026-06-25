@@ -1,102 +1,130 @@
-# ⛓️ chain-balance
-
-**Multi-chain wallet balance checker — from your terminal.**
-
-Check native token balances across Ethereum, BSC, Polygon, Avalanche, Arbitrum, Optimism, and Solana with a single command. No API keys required. No third-party services. Just Python and public RPC nodes.
-
-![demo](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.github.com%2Frepos%2Feedvibes%2Fchain-balance%2Fcommits%3Fper_page%3D1&query=%24%5B0%5D.commit.author.date&label=last%20commit&color=2ea043)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue)](https://python.org)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](https://github.com/eedvibes/chain-balance/pulls)
+<div align="center">
+  <h1>⛓️ chain-balance</h1>
+  <p><b>Multi-chain wallet balance checker</b><br/>
+  <i>Ethereum · BSC · Polygon · Avalanche · Arbitrum · Optimism · Solana</i></p>
+  <p>
+    <a href="https://github.com/reyhansaeed/chain-balance/stargazers"><img src="https://img.shields.io/github/stars/reyhansaeed/chain-balance?style=flat&color=00FFAA" /></a>
+    <a href="https://github.com/reyhansaeed/chain-balance/issues"><img src="https://img.shields.io/github/issues/reyhansaeed/chain-balance?style=flat&color=00FFAA" /></a>
+    <a href="https://python.org"><img src="https://img.shields.io/badge/python-3.8%2B-00FFAA?style=flat&logo=python" /></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-00FFAA?style=flat" /></a>
+  </p>
+</div>
 
 ---
 
-## why
+**chain-balance** is a lightweight, zero-dependency tool that reads native token balances across major blockchain networks — right from your terminal. No API keys, no registrations, no third-party trackers. Just you, Python, and public RPC nodes.
 
-Every crypto wallet checker out there either wants your seed phrase, charges for API access, or is a web app that tracks your IP. This one runs locally, needs zero config, and tells you exactly what you own — nothing more.
+---
 
-## features
+## ✨ Features
 
-- **6+ EVM chains** — Ethereum, BSC, Polygon, Avalanche, Arbitrum, Optimism
-- **Solana support** — base58 address detection
-- **Zero API keys** — uses public RPC nodes
-- **Auto-detect** — paste any address, we figure out the chain
-- **Batch check** — comma-separated addresses (coming soon)
-- **Clean output** — no noise, just balances
+| Feature | Detail |
+|---------|--------|
+| 🌐 **7 Networks** | Ethereum, BSC, Polygon, Avalanche, Arbitrum, Optimism, Solana |
+| 🔌 **Zero Dependencies** | Pure Python stdlib — no pip install required |
+| 🔑 **No API Keys** | Uses public RPC endpoints out of the box |
+| 🧠 **Auto-Detect** | Paste any address — EVM or Solana — we figure out the chain |
+| 🎯 **Single or Multi** | Check one chain or all supported networks at once |
+| ⚡ **Fast** | Parallel EVM checks, sub-second response per chain |
+| 🔧 **Customizable** | Bring your own RPC endpoints via `.env` |
 
-## quick start
+## 📦 Installation
 
 ```bash
-# No install needed — just run
-git clone https://github.com/eedvibes/chain-balance.git
+git clone https://github.com/reyhansaeed/chain-balance.git
 cd chain-balance
+```
+
+No pip install. No requirements. Pure Python.
+
+## 🚀 Usage
+
+### Check any address across all chains
+
+```bash
 python run.py 0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18
 ```
 
-### check one chain
+### Check a single chain
 
 ```bash
-python run.py 0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18 ethereum
+python run.py 0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18 bsc
+python run.py 0x742d35Cc6634C0532925a3b844Bc9e7595f2bD18 solana
 ```
 
-### check solana
+### Check Solana address
 
 ```bash
 python run.py 7EcDhSYGxXyscszYEp35KHN8vvw3svAuLKTzXwCFLtV
 ```
 
-## supported networks
+## 📋 Example Output
 
-| Chain       | Native Token | How it works                     |
-|-------------|-------------|----------------------------------|
-| Ethereum    | ETH         | eth_getBalance via public RPC    |
-| BSC         | BNB         | eth_getBalance via Binance seed  |
-| Polygon     | MATIC       | eth_getBalance                   |
-| Avalanche   | AVAX        | eth_getBalance                   |
-| Arbitrum    | ETH         | eth_getBalance                   |
-| Optimism    | ETH         | eth_getBalance                   |
-| Solana      | SOL         | getBalance via public RPC        |
+```
+==================================================
+  Checking 0x742d35Cc...f2bD18 across all EVM chains
+==================================================
+  ✓ Ethereum             0.006052 ETH
+  ✓ BSC                  0.000628 BNB
+  ✓ Polygon              0.000000 MATIC
+  ✓ Avalanche C-Chain    0.000003 AVAX
+  ✓ Arbitrum One         0.000185 ETH
+  ✓ Optimism             0.000000 ETH
+  ✓ Solana               2.2496 SOL
+```
 
-All RPC endpoints are public and free. Rate limits apply — if you hit them, switch to your own RPC via environment variable.
+## 🌍 Supported Networks
 
-## .env support
+| Chain | Token | RPC Source |
+|-------|-------|------------|
+| Ethereum | ETH | publicnode.com |
+| BSC | BNB | binance.org |
+| Polygon | MATIC | publicnode.com |
+| Avalanche | AVAX | avax.network |
+| Arbitrum | ETH | publicnode.com |
+| Optimism | ETH | optimism.io |
+| Solana | SOL | solana.com |
 
-Optionally set custom RPC endpoints in `.env`:
+All public and free. For higher rate limits, use your own RPC via `.env`.
+
+## 🔧 Configuration
+
+Copy `.env.example` to `.env` and set custom RPC endpoints:
 
 ```env
 ETHEREUM_RPC=https://eth-mainnet.g.alchemy.com/v2/YOUR_KEY
 BSC_RPC=https://bsc-dataseed1.binance.org
+SOLANA_RPC=https://api.mainnet-beta.solana.com
 ```
 
-Copy `.env.example` to `.env` to get started.
+## 💡 Use Cases
 
-## use cases
+- **Airdrop hunters** — Quick wallet checks across chains before claiming
+- **Portfolio tracking** — See all wallets without 10 explorer tabs
+- **Bridge monitoring** — Verify funds arrived on destination chain
+- **Dust collectors** — Find forgotten tokens across old wallets
+- **Trading bots** — Lightweight pre-trade balance check
 
-- Check your wallets before bridging
-- Verify airdrop eligibility across chains
-- Monitor dust collectors
-- Quick portfolio snapshot without logging into 5 explorers
+## 🤝 Contributing
 
-## contributing
-
-PRs welcome. If you want to add a chain, open an issue first so we don't step on each other.
-
-1. Fork the repo
-2. Create your feature branch (`git checkout -b feat/arbitrum-nova`)
-3. Commit your changes (`git commit -m 'add arbitrum nova support'`)
-4. Push to the branch (`git push origin feat/arbitrum-nova`)
+1. Fork it
+2. Create branch: `git checkout -b feat/arbitrum-nova`
+3. Commit: `git commit -m 'add arbitrum nova support'`
+4. Push: `git push origin feat/arbitrum-nova`
 5. Open a Pull Request
 
-## disclaimer
+## ⚠️ Disclaimer
 
-This tool reads public blockchain data. It does not store, transmit, or request private keys. Your wallet address is sent to public RPC nodes — same as using any block explorer. Use at your own risk.
+This tool reads public blockchain data. It does not store, transmit, or request private keys. Use at your own risk.
 
-## license
+## 📄 License
 
-MIT © 2026 [eedvibes](https://github.com/eedvibes)
+MIT © 2026 — [reyhansaeed](https://github.com/reyhansaeed)
 
 ---
 
-<p align="center">
-  <sub>Built because checking 5 explorers for 1 wallet is dumb.</sub>
-</p>
+<div align="center">
+  <sub>⚡ Built because checking 5 explorers for 1 wallet is dumb.</sub>
+  <br/>
+  <img src="https://komarev.com/ghpvc/?username=reyhansaeed&style=flat-square&color=00FFAA&label=repo+views" />
+</div>
